@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>POLYMER GATE</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<div class="header">
+
+    <div class="header-title">
+        POLYMER GATE
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="timer-box">
+
+            <span class="timer-label">
+                Time Left
+            </span>
+
+            <span id="timer">
+                60:00
+            </span>
+
+        </div>
+
+
+        <button
+            id="calculatorButton"
+            class="calculator-button"
+            onclick="openCalculator()"
+            disabled>
+
+            🧮 Calculator
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     START SCREEN
+     ===================================================== -->
+
+<div
+    id="startScreen"
+    class="start-screen">
+
+    <div class="instructions-box">
+
+        <h1>
+            POLYMER GATE
+        </h1>
+
+        <h2>
+            GATE XE-F Mock Test
+        </h2>
+
+
+        <!-- TEST DETAILS -->
+
+        <div class="test-details">
+
+            <div>
+
+                <strong>
+                    Total Questions
+                </strong>
+
+                <span>
+                    25
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Total Marks
+                </strong>
+
+                <span>
+                    40
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Total Time
+                </strong>
+
+                <span>
+                    60 minutes
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TEST INSTRUCTIONS
+             ================================================= -->
+
+        <h3>
+            Test Instructions
+        </h3>
+
+        <ul class="instructions-list">
+
+            <li>
+                The test contains <strong>25 questions</strong>.
+            </li>
+
+            <li>
+                The total duration is <strong>60 minutes</strong>.
+            </li>
+
+            <li>
+                The timer starts only after you click
+                <strong>START EXAM</strong>.
+            </li>
+
+            <li>
+                Use <strong>Save & Next</strong> to save your response
+                and move to the next question.
+            </li>
+
+            <li>
+                Use <strong>Previous</strong> to return to a previous question.
+            </li>
+
+            <li>
+                Use <strong>Clear</strong> to clear your response.
+            </li>
+
+            <li>
+                Use <strong>Mark for Review</strong> to mark a question
+                for later review.
+            </li>
+
+            <li>
+                <strong>Green</strong> = Answered
+            </li>
+
+            <li>
+                <strong>Purple</strong> = Marked for Review
+            </li>
+
+            <li>
+                <strong>Grey</strong> = Not Answered
+            </li>
+
+            <li>
+                An on-screen calculator is available during the examination.
+            </li>
+
+            <li>
+                The examination will be
+                <strong>automatically submitted</strong>
+                after 1 hour.
+            </li>
+
+        </ul>
+
+
+        <h3>
+            Question Types
+        </h3>
+
+        <ul class="instructions-list">
+
+            <li>
+                <strong>MCQ:</strong>
+                Only one option can be selected.
+            </li>
+
+            <li>
+                <strong>MSQ:</strong>
+                One or more options can be selected.
+            </li>
+
+            <li>
+                <strong>NAT:</strong>
+                Enter the numerical answer using the input box.
+            </li>
+
+        </ul>
+
+
+        <h3>
+            Marking Scheme
+        </h3>
+
+        <div class="marking-scheme">
+
+            <div>
+                <strong>1-Mark MCQ</strong>
+                <span>Correct: +1</span>
+                <span>Wrong: −1/3</span>
+                <span>Unanswered: 0</span>
+            </div>
+
+            <div>
+                <strong>2-Mark MCQ</strong>
+                <span>Correct: +2</span>
+                <span>Wrong: −2/3</span>
+                <span>Unanswered: 0</span>
+            </div>
+
+            <div>
+                <strong>MSQ</strong>
+                <span>Correct: +1 / +2</span>
+                <span>Wrong: 0</span>
+                <span>Unanswered: 0</span>
+            </div>
+
+            <div>
+                <strong>NAT</strong>
+                <span>Correct: +1 / +2</span>
+                <span>Wrong: 0</span>
+                <span>Unanswered: 0</span>
+            </div>
+
+        </div>
+
+
+        <div class="important-note">
+
+            <strong>
+                Important:
+            </strong>
+
+            Once you click
+            <strong>START EXAM</strong>,
+            the timer will begin and the examination
+            cannot be restarted.
+
+        </div>
+
+
+
+        <!-- START BUTTON -->
+
+        <button
+            id="startButton"
+            class="start-button"
+            onclick="startExam()">
+
+            START EXAM
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     EXAM AREA
+     ===================================================== -->
+
+<div
+    id="examArea"
+    class="container"
+    style="display:none;">
+
+
+    <!-- QUESTION -->
+
+    <div class="question-area">
+
+
+        <div
+            class="question-type"
+            id="questionType">
+
+        </div>
+
+
+        <h3 id="question"></h3>
+
+
+        <div id="options"></div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+
+            <button
+                onclick="prevQuestion()">
+
+                Previous
+
+            </button>
+
+
+            <button
+                onclick="clearResponse()">
+
+                Clear
+
+            </button>
+
+
+            <button
+                onclick="markReview()">
+
+                Mark for Review
+
+            </button>
+
+
+            <button
+                onclick="saveNext()">
+
+                Save & Next
+
+            </button>
+
+
+            <button
+                class="submit-button"
+                onclick="submitExam()">
+
+                Submit
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUESTION PALETTE
+         ================================================= -->
+
+    <div class="palette-section">
+
+
+        <h3>
+            Question Palette
+        </h3>
+
+
+        <div class="legend">
+
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box answered">
+                </span>
+
+                <span>
+                    Answered
+                </span>
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box review">
+                </span>
+
+                <span>
+                    Marked for Review
+                </span>
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box not-answered">
+                </span>
+
+                <span>
+                    Not Answered
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="palette"
+            id="palette">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CALCULATOR
+     ===================================================== -->
+
+<div
+    id="calculator"
+    class="calculator-overlay">
+
+
+    <div class="calculator">
+
+
+        <div class="calculator-header">
+
+            <span>
+                GATE Calculator
+            </span>
+
+
+            <button
+                onclick="closeCalculator()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <input
+            type="text"
+            id="calc-display"
+            class="calc-display"
+            readonly
+        >
+
+
+
+        <div class="calc-buttons">
+
+
+            <button onclick="calcClear()">
+                C
+            </button>
+
+            <button onclick="calcBackspace()">
+                DEL
+            </button>
+
+            <button onclick="calcInput('(')">
+                (
+            </button>
+
+            <button onclick="calcInput(')')">
+                )
+            </button>
+
+            <button onclick="calcInput('/')">
+                ÷
+            </button>
+
+
+            <button onclick="calcInput('7')">
+                7
+            </button>
+
+            <button onclick="calcInput('8')">
+                8
+            </button>
+
+            <button onclick="calcInput('9')">
+                9
+            </button>
+
+            <button onclick="calcInput('*')">
+                ×
+            </button>
+
+            <button onclick="calcInput('sqrt(')">
+                √
+            </button>
+
+
+            <button onclick="calcInput('4')">
+                4
+            </button>
+
+            <button onclick="calcInput('5')">
+                5
+            </button>
+
+            <button onclick="calcInput('6')">
+                6
+            </button>
+
+            <button onclick="calcInput('-')">
+                −
+            </button>
+
+            <button onclick="calcInput('^')">
+                xʸ
+            </button>
+
+
+            <button onclick="calcInput('1')">
+                1
+            </button>
+
+            <button onclick="calcInput('2')">
+                2
+            </button>
+
+            <button onclick="calcInput('3')">
+                3
+            </button>
+
+            <button onclick="calcInput('+')">
+                +
+            </button>
+
+            <button onclick="calcInput('Math.PI')">
+                π
+            </button>
+
+
+            <button onclick="calcInput('0')">
+                0
+            </button>
+
+            <button onclick="calcInput('.')">
+                .
+            </button>
+
+            <button onclick="calcInput('Math.sin(')">
+                sin
+            </button>
+
+            <button onclick="calcInput('Math.cos(')">
+                cos
+            </button>
+
+            <button onclick="calculateResult()">
+                =
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SUBMIT CONFIRMATION
+     ===================================================== -->
+
+<div
+    id="submitModal"
+    class="modal-overlay">
+
+
+    <div class="modal-box">
+
+
+        <h2>
+            Submit Examination
+        </h2>
+
+
+        <p>
+            Are you sure you want to submit
+            the examination?
+        </p>
+
+
+        <div class="modal-buttons">
+
+
+            <button
+                class="modal-cancel"
+                onclick="closeSubmitModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="modal-submit"
+                onclick="confirmSubmit()">
+
+                Submit
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     NAME ENTRY
+     ===================================================== -->
+
+<div
+    id="nameModal"
+    class="modal-overlay">
+
+
+    <div class="modal-box">
+
+
+        <h2>
+            Enter Your Name
+        </h2>
+
+
+        <p>
+            Please enter your name before
+            submitting the examination.
+        </p>
+
+
+        <input
+            type="text"
+            id="candidateName"
+            class="name-input"
+            placeholder="Enter your name"
+            autocomplete="off"
+        >
+
+        <br>
+
+        <input
+            type="tel"
+            id="candidateMobile"
+            class="name-input"
+            placeholder="Enter 10-digit mobile number"
+            inputmode="numeric"
+            maxlength="10"
+            autocomplete="tel"
+        >
+
+
+        <div class="modal-buttons">
+
+
+            <button
+                class="modal-cancel"
+                onclick="closeNameModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="modal-submit"
+                onclick="finalSubmit()">
+
+                Submit
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     RESULT
+     ===================================================== -->
+
+<div
+    id="resultModal"
+    class="modal-overlay">
+
+
+    <div
+        class="modal-box result-box">
+
+
+        <h2>
+            Exam Submitted Successfully
+        </h2>
+
+
+        <p id="resultName"></p>
+
+
+        <div class="score-display">
+
+            <span>
+                Your Score
+            </span>
+
+
+            <strong id="resultScore"></strong>
+
+        </div>
+
+
+        <button
+            class="modal-submit"
+            onclick="closeResultAndReload()">
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script src="questions.js?v=4"></script>
+
+<script src="script.js?v=6"></script>
+
+
+</body>
+
+</html>
